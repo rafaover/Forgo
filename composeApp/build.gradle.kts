@@ -82,15 +82,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    add("kspCommonMainMetadata", libs.room.ksp)
     add("kspAndroid", libs.room.ksp)
     add("kspIosSimulatorArm64", libs.room.ksp)
+    add("kspIosX64", libs.room.ksp)
     add("kspIosArm64", libs.room.ksp)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
