@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.date.time)
+            implementation(libs.kotlinx.coroutines)
             // Voyager
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenModel)
