@@ -45,16 +45,11 @@ kotlin {
             implementation(libs.kotlinx.date.time)
             implementation(libs.kotlinx.coroutines)
             // Voyager
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.screenModel)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.koin)
+            implementation(libs.bundles.voyager)
             // Koin
             implementation(libs.koin.core)
             // Room
-            implementation(libs.room.runtime)
-            implementation(libs.room.ksp)
-            implementation(libs.room.gradle.plugin)
+            implementation(libs.bundles.room)
         }
         iosMain.dependencies {
 
@@ -94,7 +89,6 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-//    ksp(libs.room.ksp)
     add("kspAndroid", libs.room.ksp)
     add("kspIosSimulatorArm64", libs.room.ksp)
     add("kspIosArm64", libs.room.ksp)

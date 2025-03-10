@@ -1,14 +1,25 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# FORGO
+## A Task Manager that finds you, when and where you need them.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+![GitHub last commit](https://img.shields.io/github/last-commit/rafaover/forgo) ![GitHub Release](https://img.shields.io/github/v/release/rafaover/forgo)
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+### Description
+FORGO is a task manager that uses the location of the user to remind them of the tasks 
+they have to do. The user can create tasks and set a location for them. When the user is near the 
+location of the task, the app will send a notification to the user reminding them of the task.
 
+### Features
+- Create tasks
+- Set a location for the task
+- A Due Date for the task
+- Receive notifications when near the location of the task
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+### Technologies
+- KMP and Compose Multiplatform
+- Room Database
+- Voyager for Navigation
+- Koin for Dependency Injection
+- WorkManager
+- Google Maps API
+- Firebase
+- Coroutines
