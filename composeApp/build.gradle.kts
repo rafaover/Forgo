@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.room.gradle.plugin)
+    alias(libs.plugins.room.ksp.plugin)
 }
 
 kotlin {
@@ -40,6 +42,22 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.kotlinx.date.time)
+            implementation(libs.kotlinx.coroutines)
+            // Voyager
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
+            // Koin
+            implementation(libs.koin.core)
+            // Room
+            implementation(libs.room.runtime)
+            implementation(libs.room.ksp)
+            implementation(libs.room.gradle.plugin)
+        }
+        iosMain.dependencies {
+
         }
     }
 }
@@ -52,8 +70,8 @@ android {
         applicationId = "com.feeltheboard.forgo"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.2"
     }
     packaging {
         resources {
@@ -69,9 +87,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
+//    ksp(libs.room.ksp)
+    add("kspAndroid", libs.room.ksp)
+    add("kspIosSimulatorArm64", libs.room.ksp)
+    add("kspIosArm64", libs.room.ksp)
 }
 
