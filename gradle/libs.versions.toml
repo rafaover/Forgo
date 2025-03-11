@@ -19,6 +19,7 @@ koin = "4.0.2"
 kotlin = "2.1.0"
 ksp = "2.1.10-1.0.31"
 room = "2.7.0-rc01"
+sqlite = "2.5.0-alpha01"
 voyager = "1.0.1"
 
 [libraries]
@@ -49,6 +50,7 @@ koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compos
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+sqlite = { module = "androidx.sqlite: sqlite-bundled", version = "sqlite" }
 
 [bundles]
 voyager = ["voyager-navigator", "voyager-screenModel", "voyager-transitions", "voyager-koin"]

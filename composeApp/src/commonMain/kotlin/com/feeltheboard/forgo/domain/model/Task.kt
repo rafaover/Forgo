@@ -1,4 +1,4 @@
-package com.feeltheboard.forgo.data.model
+package com.feeltheboard.forgo.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,4 +1,4 @@
-package com.feeltheboard.forgo.data.dao
+package com.feeltheboard.forgo.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.feeltheboard.forgo.data.model.Task
+import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,7 +21,7 @@ interface TaskDao {
     suspend fun update(task: Task)
 
     @Query("SELECT * FROM tasks")
-    suspend fun getAll(): Flow<List<Task>>
+    fun getAll(): Flow<List<Task>>
 
     // This query the title could be partially matched
     @Query("SELECT * FROM tasks WHERE title LIKE '%' || :title || '%'")

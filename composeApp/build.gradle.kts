@@ -24,6 +24,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            linkerOpts.add("-lsqlite3")
         }
     }
     
@@ -50,6 +51,7 @@ kotlin {
             implementation(libs.bundles.koin)
             // Room
             implementation(libs.bundles.room)
+            implementation(libs.sqlite)
         }
     }
 }
