@@ -1,10 +1,13 @@
 package com.feeltheboard.forgo.domain.model
 
-import kotlinx.datetime.LocalDateTime
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "tasks")
 data class Task(
-    val id: String,
-    val title: String,
-    val dueDate: LocalDateTime,
-    val location: String
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    @ColumnInfo(name = "title")
+    val title: String
 )

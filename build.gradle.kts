@@ -7,5 +7,5 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.room.gradle.plugin) apply false
-    alias(libs.plugins.room.ksp.plugin) apply false
+    alias(libs.plugins.ksp.plugin) apply false
 }

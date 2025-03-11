@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.room.gradle.plugin)
-    alias(libs.plugins.room.ksp.plugin)
+    alias(libs.plugins.ksp.plugin)
 }
 
 kotlin {
@@ -24,6 +24,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            linkerOpts.add("-lsqlite3")
         }
     }
     
@@ -45,19 +46,12 @@ kotlin {
             implementation(libs.kotlinx.date.time)
             implementation(libs.kotlinx.coroutines)
             // Voyager
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.screenModel)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.koin)
+            implementation(libs.bundles.voyager)
             // Koin
-            implementation(libs.koin.core)
+            implementation(libs.bundles.koin)
             // Room
-            implementation(libs.room.runtime)
-            implementation(libs.room.ksp)
-            implementation(libs.room.gradle.plugin)
-        }
-        iosMain.dependencies {
-
+            implementation(libs.bundles.room)
+            implementation(libs.sqlite)
         }
     }
 }
@@ -87,16 +81,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
-//    ksp(libs.room.ksp)
+    add("kspCommonMainMetadata", libs.room.ksp)
     add("kspAndroid", libs.room.ksp)
     add("kspIosSimulatorArm64", libs.room.ksp)
+    add("kspIosX64", libs.room.ksp)
     add("kspIosArm64", libs.room.ksp)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
