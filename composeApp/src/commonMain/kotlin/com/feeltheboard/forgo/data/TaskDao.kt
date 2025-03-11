@@ -12,20 +12,20 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(task: Task)
+    suspend fun insertTask(task: Task)
 
     @Delete
-    suspend fun delete(task: Task)
+    suspend fun deleteTask(task: Task)
 
     @Update
-    suspend fun update(task: Task)
+    suspend fun updateTask(task: Task)
 
     @Query("SELECT * FROM tasks")
-    fun getAll(): Flow<List<Task>>
+    fun getAllTasks(): Flow<List<Task>>
 
     // This query the title could be partially matched
     @Query("SELECT * FROM tasks WHERE title LIKE '%' || :title || '%'")
-    suspend fun getByTitle(title: String): Task
+    suspend fun getTaskByTitle(title: String): Task
 
 
 }

@@ -8,6 +8,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     MaterialTheme {
-        TODO("Insert here the main function of the app")
+        TODO("Call homeScreen here, or navigator")
     }
 }
