@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.feeltheboard.forgo.data.model.Task
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
@@ -20,7 +21,7 @@ interface TaskDao {
     suspend fun update(task: Task)
 
     @Query("SELECT * FROM tasks")
-    suspend fun getAll(): List<Task>
+    suspend fun getAll(): Flow<List<Task>>
 
     // This query the title could be partially matched
     @Query("SELECT * FROM tasks WHERE title LIKE '%' || :title || '%'")
