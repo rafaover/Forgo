@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.room.gradle.plugin)
-    alias(libs.plugins.room.ksp.plugin)
+    alias(libs.plugins.ksp.plugin)
 }
 
 kotlin {
@@ -47,12 +47,9 @@ kotlin {
             // Voyager
             implementation(libs.bundles.voyager)
             // Koin
-            implementation(libs.koin.core)
+            implementation(libs.bundles.koin)
             // Room
             implementation(libs.bundles.room)
-        }
-        iosMain.dependencies {
-
         }
     }
 }
