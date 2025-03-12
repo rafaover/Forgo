@@ -9,4 +9,5 @@ interface ForgoRepository {
     suspend fun updateTask(task: Task)
     fun getAllTasks(): Flow<List<Task>>
     suspend fun getTaskByTitle(title: String): Task
+    suspend fun getTaskById(id: Int): Task
 }

@@ -26,4 +26,8 @@ class ForgoRepositoryImpl(
     override suspend fun getTaskByTitle(title: String): Task {
         return taskDao.getTaskByTitle(title)
     }
+
+    override suspend fun getTaskById(id: Int): Task {
+        return taskDao.getTaskById(id)
+    }
 }

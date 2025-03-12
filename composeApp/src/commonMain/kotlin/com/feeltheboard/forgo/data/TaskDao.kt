@@ -27,5 +27,6 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE title LIKE '%' || :title || '%'")
     suspend fun getTaskByTitle(title: String): Task
 
-
+    @Query("SELECT * FROM tasks WHERE id = :id")
+    suspend fun getTaskById(id: Int): Task
 }
