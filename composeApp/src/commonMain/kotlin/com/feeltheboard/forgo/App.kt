@@ -9,6 +9,7 @@ import org.koin.compose.KoinContext
 @Preview
 fun App() {
     MaterialTheme {
+        // ?? KoinApplication ??
         KoinContext {
             TODO("Introduce composable content here")
         }
