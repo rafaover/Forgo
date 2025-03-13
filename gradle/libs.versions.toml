@@ -52,7 +52,7 @@ koin-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-nav
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-sqlite = { module = "androidx.sqlite: sqlite-bundled", version = "sqlite" }
+sqlite = { module = "androidx.sqlite: sqlite-bundled", version.ref = "sqlite" }
 
 [bundles]
 voyager = ["voyager-navigator", "voyager-screenModel", "voyager-transitions", "voyager-koin"]
