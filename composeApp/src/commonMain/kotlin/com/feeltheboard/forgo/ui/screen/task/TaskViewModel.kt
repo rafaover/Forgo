@@ -8,6 +8,7 @@ import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TaskViewModel(
     private val forgoRepository: ForgoRepository
@@ -23,18 +24,30 @@ class TaskViewModel(
                     )
                     forgoRepository.insertTask(newTask)
                 } else {
-                    error("Title is empty")
+                    println("Title is empty")
                 }
             } catch (e: Exception) {
-                println("Error: ${e.message}")
+                println("Error inserting Task: ${e.message}")
             }
         }
     }
 
     fun deleteTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
-            val selectedTask = forgoRepository.getTaskById(task.id)
-            forgoRepository.deleteTask(selectedTask)
+            try {
+                val selectedTask = withContext(Dispatchers.IO) {
+                    forgoRepository.getTaskById(task.id)
+                }
+                if (selectedTask != null) {
+                    withContext(Dispatchers.IO) {
+                        forgoRepository.deleteTask(selectedTask)
+                    }
+                } else {
+                    println("Task with ID ${task.id} not found")
+                }
+            } catch (e: Exception) {
+                println("Error deleting task with ID ${task.id}: ${e.message}")
+            }
         }
     }
 

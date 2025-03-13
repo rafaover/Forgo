@@ -8,6 +8,6 @@ interface ForgoRepository {
     suspend fun deleteTask(task: Task)
     suspend fun updateTask(task: Task)
     fun getAllTasks(): Flow<List<Task>>
-    suspend fun getTaskByTitle(title: String): Task
-    suspend fun getTaskById(id: Int): Task
+    suspend fun getTaskByTitle(title: String): Task?
+    suspend fun getTaskById(id: Int): Task?
 }
