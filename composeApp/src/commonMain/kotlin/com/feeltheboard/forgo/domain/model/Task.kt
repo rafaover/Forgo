@@ -15,9 +15,6 @@ data class Task(
     @ColumnInfo(name = "description")
     val description: String = "",
 
-    @ColumnInfo(name = "favourite")
-    val favourite: Boolean = false,
-
     @ColumnInfo(name = "completed")
     val completed: Boolean = false
 )
