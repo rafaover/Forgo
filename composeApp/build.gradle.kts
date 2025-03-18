@@ -51,9 +51,17 @@ kotlin {
             // Koin
             implementation(libs.bundles.koin)
             // Room
-            implementation(libs.bundles.room)
+            implementation(libs.room.runtime)
             implementation(libs.sqlite)
         }
+
+        all {
+            languageSettings.optIn("kotlin.ExperimentalMultiplatform")
+            languageSettings.optIn("kotlin.RequiresOptIn")
+        }
+    }
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
