@@ -1,9 +1,11 @@
 package com.feeltheboard.forgo.ui.screen.home
 
 import androidx.compose.runtime.Composable
+import cafe.adriel.voyager.core.screen.Screen
 
-@Composable
-fun HomeScreen() {
-    // UI elements for displaying the home screen
-    // ...
+class HomeScreen() : Screen {
+
+    @Composable
+    override fun Content() {
+    }
 }

@@ -1,9 +1,12 @@
 package com.feeltheboard.forgo.ui.screen.task
 
 import androidx.compose.runtime.Composable
+import cafe.adriel.voyager.core.screen.Screen
 
-@Composable
-fun TaskScreen() {
-    // UI elements for input fields and buttons to add tasks
-    // ...
+class TaskScreen() : Screen {
+
+    @Composable
+    override fun Content() {
+
+    }
 }

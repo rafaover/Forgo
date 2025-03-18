@@ -1,10 +1,9 @@
 package com.feeltheboard.forgo.ui.screen.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.domain.model.Task
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -17,17 +16,19 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val forgoRepository: ForgoRepository,
-    private val viewModelScope: CoroutineScope
-): ViewModel() {
+): ScreenModel {
 
     private var _sortedByFavorite = MutableStateFlow(false)
     val sortedByFavorite: StateFlow<Boolean> = _sortedByFavorite
 
-    private var _tasks = MutableStateFlow<Flow<List<Task>>>(emptyFlow())
-    val tasks = _tasks.asStateFlow()
+    private var _activeTasks = MutableStateFlow<Flow<List<Task>>>(emptyFlow())
+    val activeTasks = _activeTasks.asStateFlow()
+
+    private var _completedTasks = MutableStateFlow<Flow<List<Task>>>(emptyFlow())
+    val completedTasks = _completedTasks.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        screenModelScope.launch {
             getAllTasks()
         }
     }
@@ -42,7 +43,7 @@ class HomeViewModel(
      */
 
     fun deleteTask(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(Dispatchers.IO) {
             try {
                 val taskToDelete = withContext(Dispatchers.IO) {
                     forgoRepository.getTaskById(task.id)
@@ -62,13 +63,13 @@ class HomeViewModel(
     }
 
     private fun getAllTasks() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _tasks.value = forgoRepository.getAllTasks()
+        screenModelScope.launch(Dispatchers.IO) {
+            _activeTasks.value = forgoRepository.getAllTasks()
         }
     }
 
     fun getTaskByTitle(title: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.getTaskByTitle(title)
         }
     }

@@ -1,8 +1,8 @@
 package com.feeltheboard.forgo.ui.screen.task
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.Dispatchers
@@ -12,11 +12,11 @@ import kotlinx.coroutines.withContext
 
 class TaskViewModel(
     private val forgoRepository: ForgoRepository
-): ViewModel() {
+): ScreenModel {
     private var title = mutableStateOf("")
 
     fun insertTask(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(Dispatchers.IO) {
             try {
                 if (title.value.isNotEmpty()) {
                     val newTask = Task(
@@ -33,7 +33,7 @@ class TaskViewModel(
     }
 
     fun deleteTask(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(Dispatchers.IO) {
             try {
                 val selectedTask = withContext(Dispatchers.IO) {
                     forgoRepository.getTaskById(task.id)
@@ -52,7 +52,7 @@ class TaskViewModel(
     }
 
     fun updateTask(task: Task) {
-        viewModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
                 task.copy(
                     title = title.value
