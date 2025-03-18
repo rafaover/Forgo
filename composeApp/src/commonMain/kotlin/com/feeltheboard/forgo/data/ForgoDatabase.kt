@@ -7,7 +7,7 @@ import androidx.room.RoomDatabaseConstructor
 import com.feeltheboard.forgo.domain.model.Task
 
 
-@Database(entities = [Task::class], version = 1, exportSchema = true)
+@Database(entities = [Task::class], version = 3, exportSchema = true)
 @ConstructedBy(ForgoDatabaseConstructor::class)
 abstract class ForgoDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao

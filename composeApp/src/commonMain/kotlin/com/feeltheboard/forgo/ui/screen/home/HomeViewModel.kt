@@ -29,7 +29,8 @@ class HomeViewModel(
 
     init {
         screenModelScope.launch {
-            getAllTasks()
+            _activeTasks.value = forgoRepository.getActiveTasks()
+            _completedTasks.value = forgoRepository.getCompletedTasks()
         }
     }
 
@@ -62,9 +63,22 @@ class HomeViewModel(
         getAllTasks()
     }
 
+    private fun getActiveTasks() {
+        screenModelScope.launch(Dispatchers.IO) {
+            _activeTasks.value = forgoRepository.getActiveTasks()
+        }
+    }
+
+    private fun getCompletedTasks() {
+        screenModelScope.launch(Dispatchers.IO) {
+            _completedTasks.value = forgoRepository.getCompletedTasks()
+        }
+    }
+
     private fun getAllTasks() {
         screenModelScope.launch(Dispatchers.IO) {
-            _activeTasks.value = forgoRepository.getAllTasks()
+            getActiveTasks()
+            getCompletedTasks()
         }
     }
 

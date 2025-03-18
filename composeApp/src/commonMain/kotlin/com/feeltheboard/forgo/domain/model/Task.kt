@@ -8,6 +8,13 @@ import androidx.room.PrimaryKey
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+
     @ColumnInfo(name = "title")
-    val title: String
+    val title: String = "",
+
+    @ColumnInfo(name = "favourite")
+    val favourite: Boolean = false,
+
+    @ColumnInfo(name = "completed")
+    val completed: Boolean = false
 )

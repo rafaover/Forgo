@@ -23,6 +23,14 @@ class ForgoRepositoryImpl(
         return taskDao.getAllTasks()
     }
 
+    override fun getActiveTasks(): Flow<List<Task>> {
+        return taskDao.getActiveTasks()
+    }
+
+    override fun getCompletedTasks(): Flow<List<Task>> {
+        return taskDao.getCompletedTasks()
+    }
+
     override suspend fun getTaskByTitle(title: String): Task {
         return taskDao.getTaskByTitle(title)
     }
