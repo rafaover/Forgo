@@ -69,6 +69,10 @@ android {
     namespace = "com.feeltheboard.forgo"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
+
     defaultConfig {
         applicationId = "com.feeltheboard.forgo"
         minSdk = libs.versions.android.minSdk.get().toInt()
