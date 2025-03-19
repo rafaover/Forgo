@@ -6,11 +6,8 @@ import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -18,19 +15,25 @@ class HomeViewModel(
     private val forgoRepository: ForgoRepository,
 ): ScreenModel {
 
-    private var _sortedByFavorite = MutableStateFlow(false)
+    private val _sortedByFavorite = MutableStateFlow(false)
     val sortedByFavorite: StateFlow<Boolean> = _sortedByFavorite
 
-    private var _activeTasks = MutableStateFlow<Flow<List<Task>>>(emptyFlow())
-    val activeTasks = _activeTasks.asStateFlow()
+    private val _activeTasks =
+        MutableStateFlow<List<Task>>(emptyList())
+    val activeTasks = _activeTasks
 
-    private var _completedTasks = MutableStateFlow<Flow<List<Task>>>(emptyFlow())
-    val completedTasks = _completedTasks.asStateFlow()
+    private val _completedTasks =
+        MutableStateFlow<List<Task>>(emptyList())
+    val completedTasks = _completedTasks
 
     init {
         screenModelScope.launch {
-            _activeTasks.value = forgoRepository.getActiveTasks()
-            _completedTasks.value = forgoRepository.getCompletedTasks()
+            forgoRepository.getActiveTasks().collect {
+                _activeTasks.value = it
+            }
+            forgoRepository.getCompletedTasks().collect {
+                _completedTasks.value = it
+            }
         }
     }
 
@@ -63,15 +66,26 @@ class HomeViewModel(
         getAllTasks()
     }
 
+    fun changeTaskStatus(task: Task, completed: Boolean) {
+        screenModelScope.launch(Dispatchers.IO) {
+            forgoRepository.updateTask(
+                task.copy(
+                    completed = completed
+                )
+            )
+        }
+        getAllTasks()
+    }
+
     private fun getActiveTasks() {
         screenModelScope.launch(Dispatchers.IO) {
-            _activeTasks.value = forgoRepository.getActiveTasks()
+            forgoRepository.getActiveTasks()
         }
     }
 
     private fun getCompletedTasks() {
         screenModelScope.launch(Dispatchers.IO) {
-            _completedTasks.value = forgoRepository.getCompletedTasks()
+            forgoRepository.getCompletedTasks()
         }
     }
 
