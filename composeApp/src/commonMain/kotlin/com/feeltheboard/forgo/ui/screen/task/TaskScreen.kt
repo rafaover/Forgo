@@ -23,106 +23,94 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.getScreenModel
+import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.feeltheboard.forgo.domain.model.Task
 
-class TaskScreen() : Screen {
+class TaskScreen(val task: Task? = null) : Screen {
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
 
         val defaultTitle = "Enter the Title"
         val defaultDescription = "Enter the Description"
 
-        data class TaskScreen(val task: Task? = null) : Screen {
-            @OptIn(ExperimentalMaterial3Api::class)
-            @Composable
-            override fun Content() {
-                val navigator = LocalNavigator.currentOrThrow
-                val viewModel = getScreenModel<TaskViewModel>()
-                var currentTitle by remember {
-                    mutableStateOf(task?.title ?: defaultTitle)
-                }
-                var currentDescription by remember {
-                    mutableStateOf(task?.description ?: defaultDescription)
-                }
-
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                BasicTextField(
-                                    textStyle = TextStyle(
-                                        color = MaterialTheme.colorScheme.onSurface,
-                                        fontSize = MaterialTheme.typography.titleLarge.fontSize
-                                    ),
-                                    singleLine = true,
-                                    value = currentTitle,
-                                    onValueChange = { currentTitle = it }
-                                )
-                            },
-                            navigationIcon = {
-                                IconButton(onClick = { navigator.pop() }) {
-                                    Icon(
-                                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                        contentDescription = "Back Arrow"
-                                    )
-                                }
-                            }
-                        )
-                    },
-                    floatingActionButton = {
-                        if (currentTitle.isNotEmpty()) {
-                            FloatingActionButton(
-                                onClick = {
-                                    if (task != null) {
-                                        viewModel.updateTask(
-                                            task.copy(
-                                                title = currentTitle,
-                                                description = currentDescription
-                                            )
-                                        )
-                                    } else {
-                                        viewModel.insertTask(
-                                            Task(
-                                                title = currentTitle,
-                                                description = currentDescription,
-                                                completed = false
-                                            )
-                                        )
-                                    }
-                                    navigator.pop()
-                                },
-                                shape = RoundedCornerShape(size = 12.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = "Checkmark Icon"
-                                )
-                            }
-                        }
-                    }
-                ) { padding ->
-                    BasicTextField(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(all = 24.dp)
-                            .padding(
-                                top = padding.calculateTopPadding(),
-                                bottom = padding.calculateBottomPadding()
-                            ),
-                        textStyle = TextStyle(
-                            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                            color = MaterialTheme.colorScheme.onSurface
-                        ),
-                        value = currentDescription,
-                        onValueChange = { description -> currentDescription = description }
-                    )
-                }
-            }
+        val navigator = LocalNavigator.currentOrThrow
+        val viewModel = koinScreenModel<TaskViewModel>()
+        var currentTitle by remember {
+            mutableStateOf(task?.title ?: defaultTitle)
+        }
+        var currentDescription by remember {
+            mutableStateOf(task?.description ?: defaultDescription)
         }
 
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        BasicTextField(
+                            textStyle = TextStyle(
+                                color = MaterialTheme.colorScheme.onSurface,
+                                fontSize = MaterialTheme.typography.titleLarge.fontSize
+                            ),
+                            singleLine = true,
+                            value = currentTitle,
+                            onValueChange = { currentTitle = it }
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { navigator.pop() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = "Back Arrow"
+                            )
+                        }
+                    }
+                )
+            },
+            floatingActionButton = {
+                if (currentTitle.isNotEmpty()) {
+                    FloatingActionButton(
+                        onClick = {
+                            if (task != null) {
+                                viewModel.updateTask(
+                                    task.copy(
+                                        title = currentTitle,
+                                        description = currentDescription
+                                    )
+                                )
+                            } else {
+                                viewModel.insertTask()
+                            }
+                            navigator.pop()
+                        },
+                        shape = RoundedCornerShape(size = 12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Checkmark Icon"
+                        )
+                    }
+                }
+            }
+        ) { padding ->
+            BasicTextField(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(all = 24.dp)
+                    .padding(
+                        top = padding.calculateTopPadding(),
+                        bottom = padding.calculateBottomPadding()
+                    ),
+                textStyle = TextStyle(
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                value = currentDescription,
+                onValueChange = { description -> currentDescription = description }
+            )
+        }
     }
 }
