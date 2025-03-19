@@ -29,6 +29,10 @@ kotlin {
     }
     
     sourceSets {
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
         
         androidMain.dependencies {
             implementation(compose.preview)
