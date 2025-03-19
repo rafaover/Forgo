@@ -14,13 +14,16 @@ class TaskViewModel(
     private val forgoRepository: ForgoRepository
 ): ScreenModel {
     private var title = mutableStateOf("")
+    private var description = mutableStateOf("")
+    private var completed = mutableStateOf(false)
 
-    fun insertTask(task: Task) {
+    fun insertTask() {
         screenModelScope.launch(Dispatchers.IO) {
             try {
                 if (title.value.isNotEmpty()) {
                     val newTask = Task(
-                        title = title.value
+                        title = title.value,
+                        description = description.value
                     )
                     forgoRepository.insertTask(newTask)
                 } else {
@@ -55,7 +58,9 @@ class TaskViewModel(
         screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
                 task.copy(
-                    title = title.value
+                    title = title.value,
+                    description = description.value,
+                    completed = completed.value
                 )
             )
         }
