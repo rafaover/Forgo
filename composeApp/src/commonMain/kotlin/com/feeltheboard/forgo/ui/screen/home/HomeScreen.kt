@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.feeltheboard.forgo.ui.screen.task.DisplayTasks
@@ -37,7 +37,7 @@ class HomeScreen() : Screen {
     override fun Content() {
 
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = koinScreenModel<HomeViewModel>()
+        val viewModel = getScreenModel<HomeViewModel>()
         val activeTasks by viewModel.activeTasks.collectAsState()
         val completedTasks by viewModel.completedTasks.collectAsState()
 
@@ -81,6 +81,10 @@ class HomeScreen() : Screen {
                     modifier = Modifier.weight(1f),
                     tasks = activeTasks,
                 )
+//                Text(
+//                    modifier = Modifier.weight(1f),
+//                    text = "Active Tasks"
+//                )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -95,6 +99,10 @@ class HomeScreen() : Screen {
                         viewModel.deleteTask(task)
                     }
                 )
+//                Text(
+//                    modifier = Modifier.weight(1f),
+//                    text = "Completed Tasks"
+//                )
             }
         }
     }

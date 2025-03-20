@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.feeltheboard.forgo.domain.model.Task
@@ -38,7 +38,7 @@ class TaskScreen(val task: Task? = null) : Screen {
         val defaultDescription = "Enter the Description"
 
         val navigator = LocalNavigator.currentOrThrow
-        val viewModel = koinScreenModel<TaskViewModel>()
+        val viewModel = getScreenModel<TaskViewModel>()
         var currentTitle by remember {
             mutableStateOf(task?.title ?: defaultTitle)
         }
@@ -74,17 +74,17 @@ class TaskScreen(val task: Task? = null) : Screen {
                 if (currentTitle.isNotEmpty()) {
                     FloatingActionButton(
                         onClick = {
-                            if (task != null) {
-                                viewModel.updateTask(
-                                    task.copy(
-                                        title = currentTitle,
-                                        description = currentDescription
-                                    )
-                                )
-                            } else {
-                                viewModel.insertTask()
-                            }
-                            navigator.pop()
+//                            if (task != null) {
+//                                viewModel.updateTask(
+//                                    task.copy(
+//                                        title = currentTitle,
+//                                        description = currentDescription
+//                                    )
+//                                )
+//                            } else {
+//                                viewModel.insertTask()
+//                            }
+//                            navigator.pop()
                         },
                         shape = RoundedCornerShape(size = 12.dp)
                     ) {
