@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.room.gradle.plugin)
     alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.room.gradle.plugin)
 }
 
 kotlin {
@@ -27,6 +27,10 @@ kotlin {
             linkerOpts.add("-lsqlite3")
         }
     }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
     
     sourceSets {
 
@@ -38,6 +42,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -53,7 +58,9 @@ kotlin {
             // Voyager
             implementation(libs.bundles.voyager)
             // Koin
-            implementation(libs.bundles.koin)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.viewmodel)
+            api(libs.koin.core)
             // Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite)
@@ -107,9 +114,5 @@ dependencies {
     add("kspIosSimulatorArm64", libs.room.ksp)
     add("kspIosX64", libs.room.ksp)
     add("kspIosArm64", libs.room.ksp)
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
 }
 
