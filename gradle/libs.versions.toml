@@ -17,8 +17,8 @@ kotlinx-date-time="0.6.2"
 junit = "4.13.2"
 koin = "4.0.2"
 kotlin = "2.1.0"
-ksp = "2.1.10-1.0.31"
-room = "2.7.0-rc01"
+ksp = "2.1.0-1.0.29"
+room = "2.7.0-rc02"
 sqlite = "2.5.0-alpha01"
 voyager = "1.0.1"
 
@@ -37,27 +37,43 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-date-time = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-date-time" }
+
 # VOYAGER
-voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
-voyager-screenModel = { group = "cafe.adriel.voyager", name = "voyager-screenmodel", version.ref = "voyager" }
-voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
-voyager-koin = { group = "cafe.adriel.voyager", name = "voyager-koin", version.ref = "voyager" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
+
 # KOIN
-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"  }
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin"  }
-koin-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin"  }
-koin-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation", version.ref = "koin"  }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin"  }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin"  }
+koin-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin"  }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin"  }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin"  }
+
 # ROOM
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-gradle-plugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-sqlite = { module = "androidx.sqlite: sqlite-bundled", version = "sqlite" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+sqlite = { module = "androidx.sqlite: sqlite-bundled", version.ref = "sqlite" }
 
 [bundles]
-voyager = ["voyager-navigator", "voyager-screenModel", "voyager-transitions", "voyager-koin"]
-room = ["room-runtime", "room-ksp", "room-gradle-plugin"]
-koin = ["koin-core", "koin-compose", "koin-viewmodel", "koin-navigation"]
+koin = [
+    "koin-androidx-compose",
+    "koin-android",
+    "koin-core",
+    "koin-compose",
+    "koin-viewmodel",
+    "koin-test",
+    "koin-test-junit4"
+]
+voyager = [
+    "voyager-navigator",
+    "voyager-screenModel",
+    "voyager-transitions",
+    "voyager-koin"
+]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

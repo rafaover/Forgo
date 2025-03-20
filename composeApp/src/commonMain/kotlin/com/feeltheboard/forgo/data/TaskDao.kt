@@ -23,6 +23,12 @@ interface TaskDao {
     @Query("SELECT * FROM tasks")
     fun getAllTasks(): Flow<List<Task>>
 
+    @Query("SELECT * FROM tasks WHERE completed = false")
+    fun getActiveTasks(): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE completed = true")
+    fun getCompletedTasks(): Flow<List<Task>>
+
     // This query the title could be partially matched
     @Query("SELECT * FROM tasks WHERE title LIKE '%' || :title || '%'")
     suspend fun getTaskByTitle(title: String): Task
