@@ -9,7 +9,7 @@ fun initializeKoin(
 ) {
     startKoin {
         printLogger()
-        includes(config)
-        modules(platformModule, sharedModule)
+        config?.invoke(this)
+        modules(appModules())
     }
 }

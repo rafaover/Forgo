@@ -6,15 +6,16 @@ import com.feeltheboard.forgo.data.repository.ForgoRepositoryImpl
 import com.feeltheboard.forgo.ui.screen.home.HomeViewModel
 import com.feeltheboard.forgo.ui.screen.task.TaskViewModel
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 expect val platformModule: Module
 
 val sharedModule = module {
-    singleOf(::ForgoRepositoryImpl) { bind<ForgoRepository>() }
-    singleOf(::getRoomDatabase)
+
+    single { getRoomDatabase(get()).taskDao() }
+    single<ForgoRepository> { ForgoRepositoryImpl(get()) }
     factory { HomeViewModel(get()) }
     factory { TaskViewModel(get()) }
 }
+
+fun appModules() = listOf(sharedModule, platformModule)
