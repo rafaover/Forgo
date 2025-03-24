@@ -2,7 +2,7 @@ package com.feeltheboard.forgo.domain.model
 
 
 data class TaskState(
-    val title: String = "",
-    val description: String = "",
-    val completed: Boolean = false
+    var title: String = "",
+    var description: String = "",
+    var completed: Boolean = false
 )

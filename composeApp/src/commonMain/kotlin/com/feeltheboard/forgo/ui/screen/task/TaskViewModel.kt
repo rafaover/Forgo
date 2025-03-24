@@ -1,5 +1,8 @@
 package com.feeltheboard.forgo.ui.screen.task
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.feeltheboard.forgo.data.repository.ForgoRepository
@@ -19,17 +22,23 @@ class TaskViewModel(
     private val _taskState = MutableStateFlow(TaskState())
     val taskState = _taskState.asStateFlow()
 
+    var titleInput by mutableStateOf("")
+        private set
+    var descriptionInput by mutableStateOf("")
+        private set
+
+
     fun insertTask() {
         screenModelScope.launch(Dispatchers.IO) {
             try {
-                if (taskState.value.title.isNotEmpty()) {
+                if (titleInput.isNotEmpty() && descriptionInput.isNotEmpty()) {
                     val newTask = Task(
-                        title = taskState.value.title,
-                        description = taskState.value.description,
+                        title = titleInput,
+                        description = descriptionInput,
                     )
                     forgoRepository.insertTask(newTask)
                 } else {
-                    println("Title is empty")
+                    println("Title or Description are empty")
                 }
             } catch (e: Exception) {
                 println("Error inserting Task: ${e.message}")
@@ -66,5 +75,13 @@ class TaskViewModel(
                 )
             )
         }
+    }
+
+    fun updateTitle(input: String) {
+        titleInput = input
+    }
+
+    fun updateDescription(input: String) {
+        descriptionInput = input
     }
 }

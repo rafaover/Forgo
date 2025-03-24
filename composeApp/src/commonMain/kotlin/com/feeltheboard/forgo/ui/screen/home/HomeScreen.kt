@@ -49,7 +49,7 @@ class HomeScreen() : Screen {
                         "are the active, the bottom part are the completed." },
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text("Home") }
+                    title = { Text("Forgo") }
                 )
             },
             floatingActionButton = {
