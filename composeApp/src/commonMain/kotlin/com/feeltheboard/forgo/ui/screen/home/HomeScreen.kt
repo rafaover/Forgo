@@ -59,7 +59,7 @@ class HomeScreen() : Screen {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Add Icon"
+                        contentDescription = "Add new task"
                     )
                 }
             },
@@ -81,10 +81,6 @@ class HomeScreen() : Screen {
                     modifier = Modifier.weight(1f),
                     tasks = activeTasks,
                 )
-//                Text(
-//                    modifier = Modifier.weight(1f),
-//                    text = "Active Tasks"
-//                )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -99,10 +95,6 @@ class HomeScreen() : Screen {
                         viewModel.deleteTask(task)
                     }
                 )
-//                Text(
-//                    modifier = Modifier.weight(1f),
-//                    text = "Completed Tasks"
-//                )
             }
         }
     }
