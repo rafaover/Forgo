@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -16,15 +17,15 @@ class HomeViewModel(
 ): ScreenModel {
 
     private val _sortedByFavorite = MutableStateFlow(false)
-    val sortedByFavorite: StateFlow<Boolean> = _sortedByFavorite
+    val sortedByFavorite: StateFlow<Boolean> = _sortedByFavorite.asStateFlow()
 
     private val _activeTasks =
         MutableStateFlow<List<Task>>(emptyList())
-    val activeTasks = _activeTasks
+    val activeTasks = _activeTasks.asStateFlow()
 
     private val _completedTasks =
         MutableStateFlow<List<Task>>(emptyList())
-    val completedTasks = _completedTasks
+    val completedTasks = _completedTasks.asStateFlow()
 
     init {
         screenModelScope.launch {

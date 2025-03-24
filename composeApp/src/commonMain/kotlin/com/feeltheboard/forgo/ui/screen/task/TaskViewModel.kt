@@ -1,29 +1,31 @@
 package com.feeltheboard.forgo.ui.screen.task
 
-import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.domain.model.Task
+import com.feeltheboard.forgo.domain.model.TaskState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class TaskViewModel(
     private val forgoRepository: ForgoRepository
 ): ScreenModel {
-    private var title = mutableStateOf("")
-    private var description = mutableStateOf("")
-    private var completed = mutableStateOf(false)
+
+    private val _taskState = MutableStateFlow(TaskState())
+    val taskState = _taskState.asStateFlow()
 
     fun insertTask() {
         screenModelScope.launch(Dispatchers.IO) {
             try {
-                if (title.value.isNotEmpty()) {
+                if (taskState.value.title.isNotEmpty()) {
                     val newTask = Task(
-                        title = title.value,
-                        description = description.value
+                        title = taskState.value.title,
+                        description = taskState.value.description,
                     )
                     forgoRepository.insertTask(newTask)
                 } else {
@@ -58,9 +60,9 @@ class TaskViewModel(
         screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
                 task.copy(
-                    title = title.value,
-                    description = description.value,
-                    completed = completed.value
+                    title = taskState.value.title,
+                    description = taskState.value.description,
+                    completed = taskState.value.completed
                 )
             )
         }
