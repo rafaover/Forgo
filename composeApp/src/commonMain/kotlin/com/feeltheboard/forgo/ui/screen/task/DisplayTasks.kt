@@ -80,7 +80,7 @@ fun DisplayTasks(
             },
             confirmButton = {
                 Button(onClick = {
-                    onDelete?.invoke(taskToDelete!!)
+                    onDelete.invoke(taskToDelete!!)
                     showDialog = false
                     taskToDelete = null
                 }) {

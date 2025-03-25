@@ -44,7 +44,7 @@ class TaskScreen(
         LaunchedEffect(Unit) {
             if (task != null) {
                 viewModel.updateTitle(task.title)
-                viewModel.updateDescription(task.description ?: "")
+                viewModel.updateDescription(task.description)
             }
         }
 
@@ -67,14 +67,17 @@ class TaskScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = {
-                            if (task == null) {
-                                viewModel.insertTask()
-                            } else {
-                                viewModel.updateTask(task.id)
-                            }
-                            navigator.pop()
-                        }) {
+                        IconButton(
+                            onClick = {
+                                if (task == null) {
+                                    viewModel.insertTask()
+                                } else {
+                                    viewModel.updateTask(task.id)
+                                }
+                                navigator.pop()
+                            },
+                            enabled = viewModel.titleInput.isNotEmpty() && viewModel.descriptionInput.isNotEmpty())
+                        {
                             Text("Save")
                         }
                     }
