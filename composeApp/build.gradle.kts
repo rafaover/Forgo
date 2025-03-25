@@ -36,6 +36,8 @@ kotlin {
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
+            implementation(libs.koin.test.junit4)
         }
         
         androidMain.dependencies {
@@ -54,7 +56,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.date.time)
-            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.coroutines.core)
             // Voyager
             implementation(libs.bundles.voyager)
             // Koin
@@ -63,7 +65,7 @@ kotlin {
             api(libs.koin.core)
             // Room
             implementation(libs.room.runtime)
-            implementation(libs.sqlite)
+            implementation(libs.sqlite.bundled)
         }
 
         all {

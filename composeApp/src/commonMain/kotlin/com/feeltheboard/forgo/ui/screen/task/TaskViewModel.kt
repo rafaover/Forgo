@@ -1,33 +1,44 @@
 package com.feeltheboard.forgo.ui.screen.task
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.domain.model.Task
+import com.feeltheboard.forgo.domain.model.TaskState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class TaskViewModel(
     private val forgoRepository: ForgoRepository
 ): ScreenModel {
-    private var title = mutableStateOf("")
-    private var description = mutableStateOf("")
-    private var completed = mutableStateOf(false)
+
+    private val _taskState = MutableStateFlow(TaskState())
+    val taskState = _taskState.asStateFlow()
+
+    var titleInput by mutableStateOf("")
+        private set
+    var descriptionInput by mutableStateOf("")
+        private set
+
 
     fun insertTask() {
         screenModelScope.launch(Dispatchers.IO) {
             try {
-                if (title.value.isNotEmpty()) {
+                if (titleInput.isNotEmpty() && descriptionInput.isNotEmpty()) {
                     val newTask = Task(
-                        title = title.value,
-                        description = description.value
+                        title = titleInput,
+                        description = descriptionInput,
                     )
                     forgoRepository.insertTask(newTask)
                 } else {
-                    println("Title is empty")
+                    println("Title or Description are empty")
                 }
             } catch (e: Exception) {
                 println("Error inserting Task: ${e.message}")
@@ -54,15 +65,24 @@ class TaskViewModel(
         }
     }
 
-    fun updateTask(task: Task) {
+    fun updateTask(taskId: Int) {
         screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
-                task.copy(
-                    title = title.value,
-                    description = description.value,
-                    completed = completed.value
+                Task(
+                    id = taskId,
+                    title = titleInput,
+                    description = descriptionInput,
+                    completed = false
                 )
             )
         }
+    }
+
+    fun updateTitle(input: String) {
+        titleInput = input
+    }
+
+    fun updateDescription(input: String) {
+        descriptionInput = input
     }
 }

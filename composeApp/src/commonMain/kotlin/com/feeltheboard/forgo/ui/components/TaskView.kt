@@ -26,7 +26,7 @@ fun TaskView(
     task: Task,
     showActive: Boolean = true,
     onSelect: (Task) -> Unit,
-    onComplete: (Task, Boolean) -> Unit,
+    onComplete: (Task) -> Unit,
     onDelete: (Task) -> Unit
 ) {
     Row(
@@ -42,7 +42,7 @@ fun TaskView(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = task.completed,
-                onCheckedChange = { onComplete(task, !task.completed) },
+                onCheckedChange = { onComplete(task) },
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -58,7 +58,7 @@ fun TaskView(
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete Icon",
+                contentDescription = "Delete Task",
             )
         }
     }

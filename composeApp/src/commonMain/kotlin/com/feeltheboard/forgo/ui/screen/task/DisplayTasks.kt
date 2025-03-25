@@ -28,50 +28,12 @@ fun DisplayTasks(
     modifier: Modifier = Modifier,
     tasks: List<Task>,
     showActive: Boolean = true,
-    onDelete: ((Task) -> Unit)? = null
+    onSelect: (Task) -> Unit,
+    onDelete: (Task) -> Unit,
+    onComplete: (Task) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var taskToDelete: Task? by remember { mutableStateOf(null) }
-
-    if (showDialog) {
-        AlertDialog(
-            title = {
-                Text(
-                    text = "Delete",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
-                )
-            },
-            text = {
-                Text(
-                    text = "Are you sure you want to remove '${taskToDelete!!.title}' task?",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
-                )
-            },
-            confirmButton = {
-                Button(onClick = {
-                    onDelete?.invoke(taskToDelete!!)
-                    showDialog = false
-                    taskToDelete = null
-                }) {
-                    Text(text = "Yes")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        taskToDelete = null
-                        showDialog = false
-                    }
-                ) {
-                    Text(text = "Cancel")
-                }
-            },
-            onDismissRequest = {
-                taskToDelete = null
-                showDialog = false
-            }
-        )
-    }
 
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -91,14 +53,52 @@ fun DisplayTasks(
                 TaskView(
                     task = task,
                     showActive = showActive,
-                    onSelect = {},
-                    onComplete = { _, _ -> },
+                    onSelect = { onSelect(task) },
+                    onComplete = { onComplete( task) },
                     onDelete = {
-                        taskToDelete = it
+                        taskToDelete = task
                         showDialog = true
                     }
                 )
             }
         }
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            title = {
+                Text(
+                    text = "Remove Task",
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                )
+            },
+            text = {
+                Text(
+                    text = "Are you sure you want to remove the task '${taskToDelete!!.title}'?",
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                )
+            },
+            confirmButton = {
+                Button(onClick = {
+                    onDelete.invoke(taskToDelete!!)
+                    showDialog = false
+                    taskToDelete = null
+                }) {
+                    Text(text = "Yes")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    taskToDelete = null
+                    showDialog = false
+                }) {
+                    Text(text = "Cancel")
+                }
+            },
+            onDismissRequest = {
+                taskToDelete = null
+                showDialog = false
+            }
+        )
     }
 }
