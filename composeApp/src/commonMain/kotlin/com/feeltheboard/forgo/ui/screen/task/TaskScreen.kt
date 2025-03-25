@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
@@ -40,12 +41,19 @@ class TaskScreen(
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
 
+        LaunchedEffect(Unit) {
+            if (task != null) {
+                viewModel.updateTitle(task.title)
+                viewModel.updateDescription(task.description ?: "")
+            }
+        }
+
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Add a Task",
+                            text = if (task == null) "Add a Task" else "Edit Task",
                             fontSize = MaterialTheme.typography.titleLarge.fontSize,
                             color = MaterialTheme.colorScheme.onSurface,
                         )
@@ -60,7 +68,11 @@ class TaskScreen(
                     },
                     actions = {
                         IconButton(onClick = {
-                            viewModel.insertTask()
+                            if (task == null) {
+                                viewModel.insertTask()
+                            } else {
+                                viewModel.updateTask(task.id)
+                            }
                             navigator.pop()
                         }) {
                             Text("Save")

@@ -65,13 +65,14 @@ class TaskViewModel(
         }
     }
 
-    fun updateTask(task: Task) {
+    fun updateTask(taskId: Int) {
         screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
-                task.copy(
-                    title = taskState.value.title,
-                    description = taskState.value.description,
-                    completed = taskState.value.completed
+                Task(
+                    id = taskId,
+                    title = titleInput,
+                    description = descriptionInput,
+                    completed = false
                 )
             )
         }
