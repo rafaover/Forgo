@@ -29,11 +29,16 @@ class HomeViewModel(
 
     init {
         screenModelScope.launch {
-            forgoRepository.getActiveTasks().collect {
-                _activeTasks.value = it
+            launch {
+                forgoRepository.getActiveTasks().collect {
+                    _activeTasks.value = it
+                }
             }
-            forgoRepository.getCompletedTasks().collect {
-                _completedTasks.value = it
+
+            launch {
+                forgoRepository.getCompletedTasks().collect {
+                    _completedTasks.value = it
+                }
             }
         }
     }
@@ -64,36 +69,15 @@ class HomeViewModel(
                 println("Error deleting task with ID ${task.id}: ${e.message}")
             }
         }
-        getAllTasks()
     }
 
-    fun changeTaskStatus(task: Task, completed: Boolean) {
+    fun updateTaskStatus(task: Task, completed: Boolean) {
         screenModelScope.launch(Dispatchers.IO) {
             forgoRepository.updateTask(
                 task.copy(
                     completed = completed
                 )
             )
-        }
-        getAllTasks()
-    }
-
-    private fun getActiveTasks() {
-        screenModelScope.launch(Dispatchers.IO) {
-            forgoRepository.getActiveTasks()
-        }
-    }
-
-    private fun getCompletedTasks() {
-        screenModelScope.launch(Dispatchers.IO) {
-            forgoRepository.getCompletedTasks()
-        }
-    }
-
-    private fun getAllTasks() {
-        screenModelScope.launch(Dispatchers.IO) {
-            getActiveTasks()
-            getCompletedTasks()
         }
     }
 

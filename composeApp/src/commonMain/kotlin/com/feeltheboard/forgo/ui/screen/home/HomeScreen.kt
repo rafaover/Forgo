@@ -80,6 +80,9 @@ class HomeScreen() : Screen {
                 DisplayTasks(
                     modifier = Modifier.weight(1f),
                     tasks = activeTasks,
+                    onSelect = { navigator.push(TaskScreen(it)) },
+                    onDelete = { viewModel.deleteTask(it) },
+                    onComplete = { viewModel.updateTaskStatus(it, true) }
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -91,9 +94,9 @@ class HomeScreen() : Screen {
                     modifier = Modifier.weight(1f),
                     tasks = completedTasks,
                     showActive = false,
-                    onDelete = { task ->
-                        viewModel.deleteTask(task)
-                    }
+                    onSelect = { navigator.push(TaskScreen(it)) },
+                    onDelete = { viewModel.deleteTask(it) },
+                    onComplete = { viewModel.updateTaskStatus(it, false) }
                 )
             }
         }
