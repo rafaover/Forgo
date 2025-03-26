@@ -37,7 +37,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.koin.test)
-            implementation(libs.koin.test.junit4)
         }
         
         androidMain.dependencies {
@@ -66,6 +65,9 @@ kotlin {
             // Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+        }
+        iosMain.dependencies {
+
         }
 
         all {

@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.0"
+agp = "8.9.1"
 android-compileSdk = "35"
 android-minSdk = "24"
 android-targetSdk = "35"
@@ -16,10 +16,10 @@ kotlinx-coroutines="1.8.1"
 kotlinx-date-time="0.6.2"
 junit = "4.13.2"
 koin = "4.0.2"
-kotlin = "2.1.0"
-ksp = "2.1.0-1.0.29"
+kotlin = "2.1.20"
+ksp = "2.1.20-1.0.31"
 room = "2.7.0-rc02"
-sqlite = "2.5.0-alpha01"
+sqlite = "2.5.0-rc02"
 voyager = "1.0.1"
 
 [libraries]
@@ -51,7 +51,6 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin"  }
 koin-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin"  }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin"  }
-koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin"  }
 
 # ROOM
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -60,15 +59,6 @@ sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite"}
 sqlite-bundled = { module = "androidx.sqlite: sqlite-bundled", version.ref = "sqlite" }
 
 [bundles]
-koin = [
-    "koin-androidx-compose",
-    "koin-android",
-    "koin-core",
-    "koin-compose",
-    "koin-viewmodel",
-    "koin-test",
-    "koin-test-junit4"
-]
 voyager = [
     "voyager-navigator",
     "voyager-screenModel",
