@@ -25,6 +25,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             linkerOpts.add("-lsqlite3")
+            binaryOption("bundleId", "com.feeltheboard.forgo")
         }
     }
 
