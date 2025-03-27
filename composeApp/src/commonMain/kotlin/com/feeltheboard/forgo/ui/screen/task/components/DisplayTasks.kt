@@ -1,4 +1,4 @@
-package com.feeltheboard.forgo.ui.screen.task
+package com.feeltheboard.forgo.ui.screen.task.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.feeltheboard.forgo.domain.model.Task
-import com.feeltheboard.forgo.ui.components.TaskView
 
 @Composable
 fun DisplayTasks(
