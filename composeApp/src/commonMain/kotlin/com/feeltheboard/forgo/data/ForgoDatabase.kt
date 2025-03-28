@@ -9,7 +9,11 @@ import com.feeltheboard.forgo.domain.model.Task
 import com.feeltheboard.forgo.util.DateTimeConverters
 
 
-@Database(entities = [Task::class], version = 6, exportSchema = true)
+@Database(
+    entities = [Task::class],
+    version = 6,
+    exportSchema = true
+)
 @TypeConverters(DateTimeConverters::class)
 @ConstructedBy(ForgoDatabaseConstructor::class)
 abstract class ForgoDatabase : RoomDatabase() {
