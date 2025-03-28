@@ -4,10 +4,13 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
+import androidx.room.TypeConverters
 import com.feeltheboard.forgo.domain.model.Task
+import com.feeltheboard.forgo.util.DateTimeConverters
 
 
 @Database(entities = [Task::class], version = 5, exportSchema = true)
+@TypeConverters(DateTimeConverters::class)
 @ConstructedBy(ForgoDatabaseConstructor::class)
 abstract class ForgoDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
