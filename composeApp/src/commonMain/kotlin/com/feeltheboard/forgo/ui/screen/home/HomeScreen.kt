@@ -27,7 +27,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.feeltheboard.forgo.ui.screen.task.DisplayTasks
+import com.feeltheboard.forgo.ui.screen.task.components.DisplayTasks
 import com.feeltheboard.forgo.ui.screen.task.TaskScreen
 
 class HomeScreen() : Screen {
@@ -54,7 +54,7 @@ class HomeScreen() : Screen {
             },
             floatingActionButton = {
                 FloatingActionButton(
-                    onClick = { navigator.push(TaskScreen()) },
+                    onClick = { navigator.push(TaskScreen(navigator = navigator)) },
                     shape = RoundedCornerShape(size = 12.dp)
                 ) {
                     Icon(
@@ -80,7 +80,7 @@ class HomeScreen() : Screen {
                 DisplayTasks(
                     modifier = Modifier.weight(1f),
                     tasks = activeTasks,
-                    onSelect = { navigator.push(TaskScreen(it)) },
+                    onSelect = { navigator.push(TaskScreen(it, navigator)) },
                     onDelete = { viewModel.deleteTask(it) },
                     onComplete = { viewModel.updateTaskStatus(it, true) }
                 )
@@ -94,7 +94,7 @@ class HomeScreen() : Screen {
                     modifier = Modifier.weight(1f),
                     tasks = completedTasks,
                     showActive = false,
-                    onSelect = { navigator.push(TaskScreen(it)) },
+                    onSelect = { navigator.push(TaskScreen(it, navigator)) },
                     onDelete = { viewModel.deleteTask(it) },
                     onComplete = { viewModel.updateTaskStatus(it, false) }
                 )
