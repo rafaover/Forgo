@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.LocalDate
 
 @Dao
 interface TaskDao {
@@ -22,6 +23,15 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks")
     fun getAllTasks(): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks ORDER BY created_at DESC")
+    fun getTasksSortedByCreationDate(): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE due_date <= :date")
+    fun getTasksDueBefore(date: LocalDate): Flow<List<Task>>
+
+    @Query("SELECT * FROM tasks WHERE due_date IS NULL")
+    fun getTasksWithNoDueDate(): Flow<List<Task>>
 
     @Query("SELECT * FROM tasks WHERE completed = false")
     fun getActiveTasks(): Flow<List<Task>>

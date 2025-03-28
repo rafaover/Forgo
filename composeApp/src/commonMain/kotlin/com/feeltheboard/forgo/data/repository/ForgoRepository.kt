@@ -2,6 +2,7 @@ package com.feeltheboard.forgo.data.repository
 
 import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.LocalDate
 
 interface ForgoRepository {
     suspend fun insertTask(task: Task)
@@ -11,6 +12,12 @@ interface ForgoRepository {
     suspend fun updateTask(task: Task)
 
     fun getAllTasks(): Flow<List<Task>>
+
+    fun getTasksSortedByCreationDate(): Flow<List<Task>>
+
+    fun getTasksDueBefore(date: LocalDate): Flow<List<Task>>
+
+    fun getTasksWithNoDueDate(): Flow<List<Task>>
 
     fun getActiveTasks(): Flow<List<Task>>
 
