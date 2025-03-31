@@ -24,6 +24,9 @@ data class Task(
     @ColumnInfo(name = "due_date")
     val dueDate: LocalDate? = null,
 
+    @ColumnInfo(name = "tags")
+    val tags: List<Tag> = emptyList(),
+
     @ColumnInfo(name = "created_at")
     val createdAt: Instant = Clock.System.now(),
 )
