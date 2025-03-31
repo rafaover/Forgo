@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Forgo</string>
+
+<!--    Task Strings-->
+    <string name="add_new_task">Add New Task</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="active_tasks">Active Tasks</string>
+    <string name="completed_tasks">Completed Tasks</string>
+    <string name="title">Title</string>
+    <string name="Description">Description</string>
+
+
+<!--    Alert Strings-->
+    <string name="confirm_to_delete_msg">Are you sure you want to delete the task '%s'?</string>
+
+<!--    Button Strings-->
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="save">Save</string>
+
+<!--    Content Descriptions-->
+    <string name="back_arrow">Back Arrow</string>
+</resources>

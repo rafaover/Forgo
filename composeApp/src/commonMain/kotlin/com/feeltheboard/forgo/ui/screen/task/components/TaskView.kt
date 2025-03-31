@@ -20,6 +20,9 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.feeltheboard.forgo.domain.model.Task
+import forgo.composeapp.generated.resources.Res
+import forgo.composeapp.generated.resources.delete_task
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TaskView(
@@ -58,7 +61,7 @@ fun TaskView(
         ) {
             Icon(
                 imageVector = Icons.Default.Delete,
-                contentDescription = "Delete Task",
+                contentDescription = stringResource(Res.string.delete_task),
             )
         }
     }

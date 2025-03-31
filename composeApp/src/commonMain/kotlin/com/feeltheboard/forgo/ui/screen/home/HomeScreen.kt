@@ -21,14 +21,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.feeltheboard.forgo.ui.screen.task.components.DisplayTasks
 import com.feeltheboard.forgo.ui.screen.task.TaskScreen
+import com.feeltheboard.forgo.ui.screen.task.components.DisplayTasks
+import forgo.composeapp.generated.resources.Res
+import forgo.composeapp.generated.resources.add_new_task
+import forgo.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.stringResource
 
 class HomeScreen() : Screen {
 
@@ -44,12 +47,9 @@ class HomeScreen() : Screen {
         val snackbarHostState = remember { SnackbarHostState() }
 
         Scaffold(
-            modifier = Modifier
-                .semantics { "Main Screen, with a horizontal divider. The task at the top part" +
-                        "are the active, the bottom part are the completed." },
             topBar = {
                 CenterAlignedTopAppBar(
-                    title = { Text("Forgo") }
+                    title = { Text(stringResource(Res.string.app_name)) }
                 )
             },
             floatingActionButton = {
@@ -59,7 +59,7 @@ class HomeScreen() : Screen {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
-                        contentDescription = "Add new task"
+                        contentDescription = stringResource(Res.string.add_new_task)
                     )
                 }
             },
