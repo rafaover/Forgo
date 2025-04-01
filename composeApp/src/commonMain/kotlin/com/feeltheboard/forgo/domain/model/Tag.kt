@@ -9,6 +9,6 @@ data class Tag(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
-    @ColumnInfo(name = "tag_name")
+    @ColumnInfo(name = "name")
     val name: String = ""
 )
