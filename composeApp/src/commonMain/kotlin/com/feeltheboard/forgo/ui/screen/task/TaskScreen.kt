@@ -20,25 +20,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.Navigator
 import com.feeltheboard.forgo.domain.model.Task
+import forgo.composeapp.generated.resources.Description
+import forgo.composeapp.generated.resources.Res
+import forgo.composeapp.generated.resources.add_new_task
+import forgo.composeapp.generated.resources.back_arrow
+import forgo.composeapp.generated.resources.edit_task
+import forgo.composeapp.generated.resources.save
+import forgo.composeapp.generated.resources.title
+import org.jetbrains.compose.resources.stringResource
 
-class TaskScreen(
+data class TaskScreen(
     val task: Task? = null,
+    private val navigator: Navigator
 ) : Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
 
-        val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
 
         LaunchedEffect(Unit) {
@@ -53,7 +58,10 @@ class TaskScreen(
                 TopAppBar(
                     title = {
                         Text(
-                            text = if (task == null) "Add a Task" else "Edit Task",
+                            text = if (task == null)
+                                stringResource(Res.string.add_new_task)
+                            else
+                                stringResource(Res.string.edit_task),
                             fontSize = MaterialTheme.typography.titleLarge.fontSize,
                             color = MaterialTheme.colorScheme.onSurface,
                         )
@@ -62,7 +70,7 @@ class TaskScreen(
                         IconButton(onClick = { navigator.pop() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                                contentDescription = "Back Arrow"
+                                contentDescription = stringResource(Res.string.back_arrow)
                             )
                         }
                     },
@@ -76,9 +84,10 @@ class TaskScreen(
                                 }
                                 navigator.pop()
                             },
-                            enabled = viewModel.titleInput.isNotEmpty() && viewModel.descriptionInput.isNotEmpty())
+                            enabled = viewModel.titleInput.isNotEmpty() &&
+                                    viewModel.descriptionInput.isNotEmpty())
                         {
-                            Text("Save")
+                            Text(stringResource(Res.string.save))
                         }
                     }
                 )
@@ -87,8 +96,7 @@ class TaskScreen(
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .fillMaxSize()
-                    .semantics { contentDescription = "Adding a Task Screen with form fields" },
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {
@@ -104,7 +112,7 @@ class TaskScreen(
                         color = MaterialTheme.colorScheme.onSurface
                     ),
                     singleLine = true,
-                    label = { Text("Title") },
+                    label = { Text(stringResource(Res.string.title)) },
                     value = viewModel.titleInput,
                     onValueChange = { viewModel.updateTitle(it) }
                 )
@@ -124,7 +132,7 @@ class TaskScreen(
                         fontSize = MaterialTheme.typography.titleMedium.fontSize,
                         color = MaterialTheme.colorScheme.onSurface
                     ),
-                    label = { Text("Description") },
+                    label = { Text(stringResource(Res.string.Description)) },
                     value = viewModel.descriptionInput,
                     onValueChange = { viewModel.updateDescription(it) }
                 )

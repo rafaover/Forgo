@@ -25,6 +25,7 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
             linkerOpts.add("-lsqlite3")
+            binaryOption("bundleId", "com.feeltheboard.forgo")
         }
     }
 
@@ -37,7 +38,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.koin.test)
-            implementation(libs.koin.test.junit4)
         }
         
         androidMain.dependencies {
@@ -67,6 +67,9 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
         }
+        iosMain.dependencies {
+
+        }
 
         all {
             languageSettings.optIn("kotlin.ExperimentalMultiplatform")
@@ -82,9 +85,9 @@ android {
     namespace = "com.feeltheboard.forgo"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
+//    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+//    sourceSets["main"].res.srcDirs("src/androidMain/res")
+//    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 
     defaultConfig {
         applicationId = "com.feeltheboard.forgo"

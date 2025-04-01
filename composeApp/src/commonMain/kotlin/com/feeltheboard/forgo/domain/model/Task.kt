@@ -3,6 +3,9 @@ package com.feeltheboard.forgo.domain.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 @Entity(tableName = "tasks")
 data class Task(
@@ -16,5 +19,14 @@ data class Task(
     val description: String = "",
 
     @ColumnInfo(name = "completed")
-    val completed: Boolean = false
+    val completed: Boolean = false,
+
+    @ColumnInfo(name = "due_date")
+    val dueDate: LocalDate? = null,
+
+    @ColumnInfo(name = "tag")
+    val tagId: Int = 0,
+
+    @ColumnInfo(name = "created_at")
+    val createdAt: Instant = Clock.System.now(),
 )

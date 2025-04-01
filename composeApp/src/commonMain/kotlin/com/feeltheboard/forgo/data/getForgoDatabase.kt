@@ -9,7 +9,8 @@ fun getRoomDatabase(
     builder: RoomDatabase.Builder<ForgoDatabase>
 ): ForgoDatabase {
     return builder
-        .fallbackToDestructiveMigrationOnDowngrade(dropAllTables = true)
+//        .fallbackToDestructiveMigrationOnDowngrade(dropAllTables = true)
+        .fallbackToDestructiveMigration(true)
         .setDriver(BundledSQLiteDriver())
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()

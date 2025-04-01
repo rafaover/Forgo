@@ -1,5 +1,6 @@
 package com.feeltheboard.forgo.di
 
+import com.feeltheboard.forgo.data.ForgoDatabase
 import com.feeltheboard.forgo.data.getRoomDatabase
 import com.feeltheboard.forgo.data.repository.ForgoRepository
 import com.feeltheboard.forgo.data.repository.ForgoRepositoryImpl
@@ -12,8 +13,12 @@ expect val platformModule: Module
 
 val sharedModule = module {
 
-    single { getRoomDatabase(get()).taskDao() }
-    single<ForgoRepository> { ForgoRepositoryImpl(get()) }
+    single { getRoomDatabase(get()) }
+
+    single { get<ForgoDatabase>().taskDao() }
+    single { get<ForgoDatabase>().tagDao() }
+
+    single<ForgoRepository> { ForgoRepositoryImpl(get(), get()) }
     factory { HomeViewModel(get()) }
     factory { TaskViewModel(get()) }
 }

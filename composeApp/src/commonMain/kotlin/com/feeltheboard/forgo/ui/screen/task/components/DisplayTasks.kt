@@ -1,4 +1,4 @@
-package com.feeltheboard.forgo.ui.screen.task
+package com.feeltheboard.forgo.ui.screen.task.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,7 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.feeltheboard.forgo.domain.model.Task
-import com.feeltheboard.forgo.ui.components.TaskView
+import forgo.composeapp.generated.resources.Res
+import forgo.composeapp.generated.resources.active_tasks
+import forgo.composeapp.generated.resources.cancel
+import forgo.composeapp.generated.resources.completed_tasks
+import forgo.composeapp.generated.resources.confirm_to_delete_msg
+import forgo.composeapp.generated.resources.delete_task
+import forgo.composeapp.generated.resources.yes
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DisplayTasks(
@@ -38,7 +45,11 @@ fun DisplayTasks(
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             modifier = Modifier.padding(horizontal = 12.dp),
-            text = if (showActive) "Active Tasks" else "Completed Tasks",
+            text = if (showActive)
+                stringResource(Res.string.active_tasks)
+            else
+                stringResource(Res.string.completed_tasks),
+
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             fontWeight = FontWeight.Medium
         )
@@ -68,13 +79,13 @@ fun DisplayTasks(
         AlertDialog(
             title = {
                 Text(
-                    text = "Remove Task",
+                    text = stringResource(Res.string.delete_task),
                     fontSize = MaterialTheme.typography.titleLarge.fontSize
                 )
             },
             text = {
                 Text(
-                    text = "Are you sure you want to remove the task '${taskToDelete!!.title}'?",
+                    text = stringResource(Res.string.confirm_to_delete_msg, taskToDelete!!.title),
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize
                 )
             },
@@ -84,7 +95,7 @@ fun DisplayTasks(
                     showDialog = false
                     taskToDelete = null
                 }) {
-                    Text(text = "Yes")
+                    Text(text = stringResource(Res.string.yes))
                 }
             },
             dismissButton = {
@@ -92,7 +103,7 @@ fun DisplayTasks(
                     taskToDelete = null
                     showDialog = false
                 }) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(Res.string.cancel))
                 }
             },
             onDismissRequest = {
