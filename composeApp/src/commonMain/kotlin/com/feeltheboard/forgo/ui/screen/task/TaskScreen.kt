@@ -20,15 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.Navigator
 import com.feeltheboard.forgo.domain.model.Task
-import forgo.composeapp.generated.resources.Adding_a_task_screen
 import forgo.composeapp.generated.resources.Description
 import forgo.composeapp.generated.resources.Res
 import forgo.composeapp.generated.resources.add_new_task
