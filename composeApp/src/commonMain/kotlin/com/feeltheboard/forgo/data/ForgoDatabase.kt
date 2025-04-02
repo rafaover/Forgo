@@ -12,7 +12,7 @@ import com.feeltheboard.forgo.util.DateTimeConverters
 
 @Database(
     entities = [Task::class, Tag::class],
-    version = 7,
+    version = 8,
     exportSchema = true
 )
 @TypeConverters(DateTimeConverters::class)

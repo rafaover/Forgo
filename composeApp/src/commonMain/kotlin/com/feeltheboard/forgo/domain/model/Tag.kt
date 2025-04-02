@@ -10,5 +10,8 @@ data class Tag(
     val id: Int = 0,
 
     @ColumnInfo(name = "name")
-    val name: String = ""
+    val name: String = "",
+
+    @ColumnInfo(name = "color")
+    val color: String = "",
 )
