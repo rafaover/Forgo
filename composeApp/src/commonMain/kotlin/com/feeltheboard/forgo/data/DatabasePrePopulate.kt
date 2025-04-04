@@ -1,6 +1,7 @@
 package com.feeltheboard.forgo.data
 
 import com.feeltheboard.forgo.domain.model.Tag
+import com.feeltheboard.forgo.domain.model.Task
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
  */
 fun prepopulateDatabase(database: ForgoDatabase) {
     val tagDao = database.tagDao()
+    val taskDao = database.taskDao()
 
     CoroutineScope(Dispatchers.IO).launch {
         // Check if there are any tags already
@@ -23,8 +25,12 @@ fun prepopulateDatabase(database: ForgoDatabase) {
                 Tag(name = "Work", color = "#2196F3"),    // Blue
                 Tag(name = "Random", color = "#9C27B0")   // Purple
             )
+            val defaultTask =
+                Task(title = "Buy groceries", description = "Buy milk, eggs, and bread", tagId = 1)
 
             tagDao.insertAll(defaultTags)
+            taskDao.insertTask(defaultTask)
+
         }
     }
 }
