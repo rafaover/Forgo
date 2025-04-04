@@ -8,10 +8,15 @@ import kotlinx.coroutines.IO
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<ForgoDatabase>
 ): ForgoDatabase {
-    return builder
+
+    val database = builder
 //        .fallbackToDestructiveMigrationOnDowngrade(dropAllTables = true)
         .fallbackToDestructiveMigration(true)
         .setDriver(BundledSQLiteDriver())
         .setQueryCoroutineContext(Dispatchers.IO)
         .build()
+
+    prepopulateDatabase(database)
+
+    return database
 }

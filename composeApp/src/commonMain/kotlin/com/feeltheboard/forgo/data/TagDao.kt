@@ -3,6 +3,7 @@ package com.feeltheboard.forgo.data
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.feeltheboard.forgo.domain.model.Tag
@@ -24,4 +25,10 @@ interface TagDao {
 
     @Query("SELECT * FROM tags WHERE name = :name")
     suspend fun getTagByName(name: String): Tag
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(tags: List<Tag>)
+
+    @Query("SELECT COUNT(*) FROM tags")
+    suspend fun getTagCount(): Int
 }
